@@ -10,3 +10,18 @@ spec:
     kind: ClusterIssuer
     name: le-wildcard-issuer
   secretName: witt-dev-wildcard-cert
+
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: witt-bare-wildcard-cert
+  namespace: kube-system
+spec:
+  dnsNames:
+    - '*.bare.witt.kr'
+  issuerRef:
+    kind: ClusterIssuer
+    name: le-wildcard-issuer
+  secretName: witt-bare-wildcard-cert
