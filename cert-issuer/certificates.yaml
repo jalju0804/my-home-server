@@ -2,7 +2,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: witt-dev-wildcard-cert
-  namespace: ingress-nginx
+  namespace: kube-system
 spec:
   dnsNames:
     - 'argocd.dev.witt.kr'
