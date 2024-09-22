@@ -10,10 +10,10 @@ metadata:
 spec:
   tls:
     - hosts:
-      - argocd.dev.witt.kr
-      secretName: witt-dev-wildcard-cert
+      - argocd.bare.witt.kr
+      secretName: witt-bare-wildcard-cert
   rules:
-    - host: argocd.dev.witt.kr
+    - host: argocd.bare.witt.kr
       http:
         paths:
           - pathType: Prefix
