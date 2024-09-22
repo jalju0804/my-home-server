@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: witt-dev-wildcard-cert
+  namespace: ingress-nginx
+spec:
+  dnsNames:
+    - '*.dev.witt.org'
+  issuerRef:
+    kind: ClusterIssuer
+    name: le-wildcard-issuer
+  secretName: witt-dev-wildcard-cert
