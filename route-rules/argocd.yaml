@@ -23,7 +23,7 @@ spec:
   tls:
     - hosts:
       - argocd.bare.witt.kr
-      secretName: wildcard-base-witt-cert
+      secretName: witt-bare-wildcard-cert
   rules:
     - host: argocd.bare.witt.kr
       http:
