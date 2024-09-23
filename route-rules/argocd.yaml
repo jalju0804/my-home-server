@@ -22,7 +22,7 @@ metadata:
 spec:
   tls:
     - hosts:
-      - argocd.bare.witt.kr
+        - argocd.bare.witt.kr
       secretName: witt-bare-wildcard-cert
   rules:
     - host: argocd.bare.witt.kr
@@ -34,4 +34,11 @@ spec:
               service:
                 name: argocd-external
                 port:
-                  number: 80
+                  number: 80 
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: argocd-external
+                port:
+                  number: 443 
