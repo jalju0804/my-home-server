@@ -3,3 +3,4 @@ kind: Kustomization
 
 resources:
   - prometheus-operator.yaml
+  - prometheus-manifest.yaml 
