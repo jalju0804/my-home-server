@@ -6,8 +6,8 @@ metadata:
 spec:
   project: default
   source:
-    path: prometheus-operator
-    repoURL: https://github.com/argoproj/argoproj-deployments
+    path: deployments/prometheus-operator
+    repoURL: https://github.com/jalju0804/my-home-server
     targetRevision: HEAD
   destination:
     server: 'https://kubernetes.default.svc'
