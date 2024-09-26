@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
 - ./prometheus-operator-crds/application.yaml
 - ./prometheus/application.yaml
-# - ./prometheus-node-exporter/application.yaml
+- ./prometheus-node-exporter/application.yaml
 - ./grafana/dashboards/argo-cd.yaml
