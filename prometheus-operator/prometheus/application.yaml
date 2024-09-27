@@ -39,7 +39,7 @@ spec:
                 scrape_interval: 1m
                 scheme: http
                 static_configs:
-                  - targets: ["dev-backend.dev.witt.kr/v1/actuator/health"]
+                  - targets: ['dev-backend.dev.witt.kr:80']
         alertmanager:
           enabled: true
         nodeExporter:
