@@ -37,8 +37,9 @@ spec:
               - job_name: "spring-actuator"
                 metrics_path: "/v1/actuator/prometheus"
                 scrape_interval: 1m
+                scheme: http
                 static_configs:
-                  - targets: ["http://dev-backend.dev.witt.kr/v1/actuator/health"]
+                  - targets: ["dev-backend.dev.witt.kr/v1/actuator/health"]
         alertmanager:
           enabled: true
         nodeExporter:
