@@ -36,7 +36,7 @@ spec:
                 static_configs:
                   - targets: ['prometheus-node-exporter.monitoring.svc.cluster.local:9100']
               
-               - job_name: "spring-actuator"
+              - job_name: "spring-actuator"
                 metrics_path: "/v1/actuator/prometheus"
                 scrape_interval: 1m
                 static_configs:
