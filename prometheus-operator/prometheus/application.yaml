@@ -28,7 +28,7 @@ spec:
                 scrape_interval: 30s
                 scrape_timeout: 10s
                 static_configs:
-                  - targets: ['argocd-notifications-controller-metrics.argocd.svc.cluster.local:8082', 'argocd-redis-metrics.monitoring.svc.cluster.local:9121']
+                  - targets: ['argocd-notifications-controller-metrics.argocd.svc.cluster.local:8082']
               - job_name: 'alertManager'
                 scrape_interval: 30s
                 scrape_timeout: 10s
