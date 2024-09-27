@@ -29,13 +29,11 @@ spec:
                 scrape_timeout: 10s
                 static_configs:
                   - targets: ['alertmanager-operated.monitoring.svc.cluster.local:9093']
-
               - job_name: 'nodeExporter'
                 scrape_interval: 30s
                 scrape_timeout: 10s
                 static_configs:
                   - targets: ['prometheus-node-exporter.monitoring.svc.cluster.local:9100']
-
               - job_name: "spring-actuator"
                 metrics_path: "/v1/actuator/prometheus"
                 scrape_interval: 1m
