@@ -24,12 +24,6 @@ spec:
               matchLabels:
                 prometheus: argo-cd-grafana
             additionalScrapeConfigs: |
-              - job_name: 'argocd-metrics'
-                scrape_interval: 30s
-                scrape_timeout: 10s
-                static_configs:
-                  - targets: ['argocd-metrics.argocd.svc.cluster.local:8082,argocd-server-metrics.argocd.svc.cluster.local:8083,argocd-notifications-controller-metrics.argocd.svc.cluster.local:9001']
-
               - job_name: 'alertManager'
                 scrape_interval: 30s
                 scrape_timeout: 10s
@@ -46,9 +40,7 @@ spec:
                 metrics_path: "/v1/actuator/prometheus"
                 scrape_interval: 1m
                 static_configs:
-                  - targets: ["https://dev-backend.dev.witt.kr/v1/actuator/health"]
-                tls_config:
-                  insecure_skip_verify: true
+                  - targets: ["http://dev-backend.dev.witt.kr/v1/actuator/health"]
         alertmanager:
           enabled: true
         nodeExporter:
