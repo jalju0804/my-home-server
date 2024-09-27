@@ -28,12 +28,17 @@ spec:
                 scrape_interval: 30s
                 scrape_timeout: 10s
                 static_configs:
-                  - targets: ['argocd-application-controller-metrics.argocd.svc.cluster.local:8082', 'argocd-redis-metrics.argocd.svc.cluster.local:9121']
+                  - targets: ['argocd-application-controller-metrics.monitoring.svc.cluster.local:8082', 'argocd-redis-metrics.monitoring.svc.cluster.local:9121']
               - job_name: 'alertManager'
                 scrape_interval: 30s
                 scrape_timeout: 10s
                 static_configs:
-                  - targets: ['alertmanager-operated.argocd.svc.cluster.local:9093']
+                  - targets: ['alertmanager-operated.monitoring.svc.cluster.local:9093']
+              - job_name: 'nodeExporter'
+                scrape_interval: 30s
+                scrape_timeout: 10s
+                static_configs:
+                  - targets: ['prometheus-node-exporter.monitoring.svc.cluster.local:9093']
         alertmanager:
           enabled: true
         nodeExporter:
