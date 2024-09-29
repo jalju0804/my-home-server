@@ -5,7 +5,7 @@ resources:
 - ./prometheus-operator-crds/application.yaml
 - ./prometheus/application.yaml
 - ./prometheus-node-exporter/application.yaml
-- ./pormetheus-adapter/application.yaml
+- ./prometheus-adapter/application.yaml
 - ./grafana/dashboards/argo-cd.yaml
 - ./loki/application.yaml
 - ./phlare/application.yaml
