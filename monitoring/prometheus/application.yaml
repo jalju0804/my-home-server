@@ -17,7 +17,7 @@ spec:
     targetRevision: 48.1.2
     helm:
       version: v3
-      # skipCrds: true
+      skipCrds: true
       values: |
         prometheusOperator:
           admissionWebhooks:
