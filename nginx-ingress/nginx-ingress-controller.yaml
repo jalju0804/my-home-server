@@ -31,7 +31,7 @@ spec:
       containers:
         - args:
             - /nginx-ingress-controller
-            - -enable-prometheus-metrics
+            - --enable-metrics
             - --publish-service=$(POD_NAMESPACE)/ingress-nginx-controller
             - --election-id=ingress-nginx-leader
             - --controller-class=k8s.io/ingress-nginx
