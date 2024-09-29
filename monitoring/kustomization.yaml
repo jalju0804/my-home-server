@@ -5,5 +5,9 @@ resources:
 - ./prometheus-operator-crds/application.yaml
 - ./prometheus/application.yaml
 - ./prometheus-node-exporter/application.yaml
+- ./pormetheus-adapter/application.yaml
 - ./grafana/dashboards/argo-cd.yaml
-- ./loki.application.yaml
+- ./loki/application.yaml
+- ./phlare/application.yaml
+- ./tempo/application.yaml
+- ./victoriametrics/application.yaml
