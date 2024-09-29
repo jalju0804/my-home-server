@@ -188,6 +188,14 @@ rules:
       - list
       - watch
       - get
+  - apiGroups:
+      - monitoring.coreos.com 
+    resources:
+      - servicemonitors
+    verbs:
+      - get
+      - list
+      - watch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -288,6 +296,9 @@ subjects:
 apiVersion: v1
 data:
   allow-snippet-annotations: "true"
+  enable-metrics: "true"  
+  metrics-per-host: "true"
+  log-format-upstream: "$request_time $upstream_response_time $upstream_connect_time"
 kind: ConfigMap
 metadata:
   labels:
