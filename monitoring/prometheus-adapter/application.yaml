@@ -49,4 +49,4 @@ spec:
             window: 3m
   destination:
     server: https://kubernetes.default.svc
-    namespace: prometheus-adapter
+    namespace: monitoring
