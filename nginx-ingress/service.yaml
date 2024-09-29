@@ -25,6 +25,11 @@ spec:
       port: 443
       protocol: TCP
       targetPort: https
+    - appProtocol: http
+      name: prometheus
+      port: 9113
+      protocol: TCP
+      targetPort: 9113
   externalIPs:
     - 58.228.141.237
   selector:
