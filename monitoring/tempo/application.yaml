@@ -15,5 +15,5 @@ spec:
         - name: service.clusterIP
           value: "10.96.0.2"
   destination:
-    server: in-cluster
+    server: https://kubernetes.default.svc
     namespace: monitoring

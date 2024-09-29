@@ -10,5 +10,5 @@ spec:
     chart: loki-stack
     targetRevision: 2.9.10
   destination:
-    server: in-cluster
+    server: https://kubernetes.default.svc
     namespace: monitoring
