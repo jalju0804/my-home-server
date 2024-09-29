@@ -9,7 +9,7 @@ metadata:
     release: kube-prometheus-stack
 spec:
   destination:
-    name: https://kubernetes.default.svc
+    server: https://kubernetes.default.svc
     namespace: monitoring
   project: default
   source:
