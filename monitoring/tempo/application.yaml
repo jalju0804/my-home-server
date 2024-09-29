@@ -13,7 +13,7 @@ spec:
       version: v3
       parameters:
         - name: service.clusterIP
-          value: "10.96.0.2"
+          value: "10.43.0.11"
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
