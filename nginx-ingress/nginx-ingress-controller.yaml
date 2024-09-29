@@ -81,6 +81,7 @@ spec:
               protocol: TCP
             - containerPort: 9113
               name: prometheus
+              protocol: TCP
           readinessProbe:
             failureThreshold: 3
             httpGet:
