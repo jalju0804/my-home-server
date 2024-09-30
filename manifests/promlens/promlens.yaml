@@ -24,7 +24,7 @@ spec:
             - -c
             - >-
                 GRAFANA_API_TOKEN=$(cat /token/GRAFANA_API_TOKEN) &&
-                promlens --grafana.url=http://prometheus-grafana --grafana.api-token=${GRAFANA_API_TOKEN}
+                promlens --grafana.url=http://kube-prometheus-stack-grafana --grafana.api-token=${GRAFANA_API_TOKEN}
           ports:
             - name: http
               containerPort: 8080
