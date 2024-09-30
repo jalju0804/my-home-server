@@ -24,7 +24,7 @@ spec:
             - -c
             - >-
                 GRAFANA_API_TOKEN=$(cat /token/GRAFANA_API_TOKEN) &&
-                promlens --grafana.url=http://kube-prometheus-stack-grafana.monitoring.svc.local --grafana.api-token=${GRAFANA_API_TOKEN}
+                promlens --grafana.url=http://kube-prometheus-stack-grafana --grafana.api-token=${GRAFANA_API_TOKEN}
           ports:
             - name: http
               containerPort: 8080
@@ -41,9 +41,9 @@ spec:
             - >-
                 GRAFANA_USER=$(cat /grafana-secret/admin-user) &&
                 GRAFANA_PASSWORD=$(cat /grafana-secret/admin-password) &&
-                TOKEN_ID=$(curl -sS http://${GRAFANA_USER}:${GRAFANA_PASSWORD}@kube-prometheus-stack-grafana.monitoring.svc.local/api/auth/keys | jq '.[] | select(.name=="promlens_key") | .id') &&
-                if [ -n "${TOKEN_ID}" ]; then curl -sS -X DELETE http://${GRAFANA_USER}:${GRAFANA_PASSWORD}@kube-prometheus-stack-grafana.monitoring.svc.local/api/auth/keys/${TOKEN_ID}; fi &&
-                curl -X POST -H "Content-Type: application/json" -d '{"name":"promlens_key", "role": "Admin"}' http://${GRAFANA_USER}:${GRAFANA_PASSWORD}@kube-prometheus-stack-grafana.monitoring.svc.local/api/auth/keys | jq -r .key > /token/GRAFANA_API_TOKEN
+                TOKEN_ID=$(curl -sS http://${GRAFANA_USER}:${GRAFANA_PASSWORD}@kube-prometheus-stack-grafana/api/auth/keys | jq '.[] | select(.name=="promlens_key") | .id') &&
+                if [ -n "${TOKEN_ID}" ]; then curl -sS -X DELETE http://${GRAFANA_USER}:${GRAFANA_PASSWORD}@kube-prometheus-stack-grafana/api/auth/keys/${TOKEN_ID}; fi &&
+                curl -X POST -H "Content-Type: application/json" -d '{"name":"promlens_key", "role": "Admin"}' http://${GRAFANA_USER}:${GRAFANA_PASSWORD}@kube-prometheus-stack-grafana/api/auth/keys | jq -r .key > /token/GRAFANA_API_TOKEN
           volumeMounts:
             - mountPath: /grafana-secret
               name: grafana-secret
