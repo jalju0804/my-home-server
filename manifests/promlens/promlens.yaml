@@ -54,4 +54,4 @@ spec:
           emptyDir: {}
         - name: grafana-secret
           secret:
-            secretName: kube-prometheus-stack-grafana
+            secretName: grafana-secret
