@@ -11,3 +11,4 @@ resources:
 - ./phlare/application.yaml
 - ./tempo/application.yaml
 - ./victoriametrics/application.yaml
+- ./opentelemetry-operator/application.yaml
