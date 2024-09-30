@@ -43,7 +43,7 @@ spec:
                 GRAFANA_PASSWORD=$(cat /grafana-secret/admin-password) &&
                 TOKEN_ID=$(curl -sS http://${GRAFANA_USER}:${GRAFANA_PASSWORD}@kube-prometheus-stack-grafana.monitoring.svc/api/auth/keys | jq '.[] | select(.name=="promlens_key") | .id') &&
                 if [ -n "${TOKEN_ID}" ]; then curl -sS -X DELETE http://${GRAFANA_USER}:${GRAFANA_PASSWORD}@kube-prometheus-stack-grafana.monitoring.svc/api/auth/keys/${TOKEN_ID}; fi &&
-                curl -X POST -H "Content-Type: application/json" -d '{"name":"promlens_key", "role": "Admin"}' http://${GRAFANA_USER}:${GRAFANA_PASSWORD}@kube-prometheus-stack-grafana/api/auth/keys | jq -r .key > /token/GRAFANA_API_TOKEN
+                curl -X POST -H "Content-Type: application/json" -d '{"name":"promlens_key", "role": "Admin"}' http://${GRAFANA_USER}:${GRAFANA_PASSWORD}@kube-prometheus-stack-grafana.monitoring.svc/api/auth/keys | jq -r .key > /token/GRAFANA_API_TOKEN
           volumeMounts:
             - mountPath: /grafana-secret
               name: grafana-secret
