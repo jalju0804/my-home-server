@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: loki-external
+  namespace: ingress-nginx
+spec:
+  type: ExternalName
+  externalName: loki.monitoring.svc.cluster.local
+  ports:
+    - port: 3100
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: loki-ingress
+  namespace: ingress-nginx
+  annotations:
+    ingress.kubernetes.io/proxy-body-size: 100M
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - loki.bare.witt.kr
+      secretName: witt-bare-wildcard-cert
+  rules:
+    - host: loki.bare.witt.kr
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: loki-external
+                port:
+                  number: 80 
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: loki-external
+                port:
+                  number: 443 
