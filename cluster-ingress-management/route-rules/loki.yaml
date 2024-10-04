@@ -35,11 +35,4 @@ spec:
               service:
                 name: loki-external
                 port:
-                  number: 80 
-          - pathType: Prefix
-            path: /
-            backend:
-              service:
-                name: loki-external
-                port:
-                  number: 443 
+                  number: 3000
