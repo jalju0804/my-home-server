@@ -35,4 +35,4 @@ spec:
               service:
                 name: loki-external
                 port:
-                  number: 3000
+                  number: 3100
