@@ -4,6 +4,7 @@ metadata:
   labels:
     ngrinder: controller
   name: controller
+  namespace: ngrinder
 spec:
   ports:
   - name: "80"

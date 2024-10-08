@@ -4,6 +4,7 @@ metadata:
   labels:
     ngrinder: agent
   name: agent
+  namespace: ngrinder
 spec:
   replicas: 4
   selector:
