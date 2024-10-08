@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ngrinder-external
+  namespace: ingress-nginx
+spec:
+  type: ExternalName
+  externalName: controller.ngrinder.svc.cluster.local
+  ports:
+    - port: 80
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ngrinder-ingress
+  namespace: ingress-nginx
+  annotations:
+    ingress.kubernetes.io/proxy-body-size: 100M
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - ngrinder.bare.witt.kr
+      secretName: witt-bare-wildcard-cert
+  rules:
+    - host: ngrinder.bare.witt.kr
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: ngrinder-external
+                port:
+                  number: 80

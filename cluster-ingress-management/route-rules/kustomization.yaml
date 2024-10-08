@@ -5,3 +5,4 @@ resources:
   - argocd.yaml
   - grafana.yaml
   - loki.yaml
+  - ngrinder.yaml
