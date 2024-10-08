@@ -18,7 +18,7 @@ spec:
         ngrinder: controller
     spec:
       containers:
-      - image: ngrinder/controller:3.4.4
+      - image: ngrinder/controller:3.5.9
         name: controller
         ports:
         - containerPort: 80
