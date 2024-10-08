@@ -2,30 +2,41 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    ngrinder: agent
-  name: agent
+    ngrinder: controller
+  name: controller
   namespace: ngrinder
 spec:
-  replicas: 4
+  replicas: 1
   selector:
     matchLabels:
-      ngrinder: agent
+      ngrinder: controller
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        ngrinder: agent
+        ngrinder: controller
     spec:
       containers:
-      - image: ngrinder/agent:3.4.4
-        name: agent
+      - image: ngrinder/controller:3.4.4
+        name: controller
+        ports:
+        - containerPort: 80
+        - containerPort: 16001
+        - containerPort: 12000
+        - containerPort: 12001
+        - containerPort: 12002
+        - containerPort: 12003
+        - containerPort: 12004
+        - containerPort: 12005
+        - containerPort: 12006
+        - containerPort: 12007
+        - containerPort: 12008
+        - containerPort: 12009
         resources: {}
         volumeMounts:
-        - mountPath: /opt/ngrinder-agent
-          name: agent-claim0
-      restartPolicy: Always
+        - mountPath: /opt/ngrinder-controller
+          name: controller-claim0
       volumes:
-      - name: agent-claim0
+      - name: controller-claim0
         emptyDir: {}
-status: {}
