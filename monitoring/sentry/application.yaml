@@ -16,10 +16,9 @@ spec:
         ingress:
           enabled: false
         externalPostgresql:
-          host: database-host
           port: 5432
           username: postgres
-          password: ""
+          password: postgres
           database: sentry
         
   destination:
