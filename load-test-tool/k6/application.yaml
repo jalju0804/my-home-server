@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: k6-operator
-  namespace: k6
+  namespace: argocd
 spec:
   project: default
   source: 
