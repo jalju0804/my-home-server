@@ -6,3 +6,4 @@ resources:
   - grafana.yaml
   - loki.yaml
   - ngrinder.yaml
+  - sentry.yaml
