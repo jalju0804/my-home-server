@@ -15,8 +15,12 @@ spec:
           enabled: false
         ingress:
           enabled: false
-        postgresql:
-          enabled: false
+        externalPostgresql:
+          host: database-host
+          port: 5432
+          username: postgres
+          password: ""
+          database: sentry
         
   destination:
     server: https://kubernetes.default.svc
