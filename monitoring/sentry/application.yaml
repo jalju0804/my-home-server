@@ -9,7 +9,7 @@ spec:
     repoURL: https://sentry-kubernetes.github.io/charts
     chart: sentry
     targetRevision: 25.13.0
-     helm:
+    helm:
       values: |-
         nginx:
           enabled: false
