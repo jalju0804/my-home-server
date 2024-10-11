@@ -28,11 +28,7 @@ spec:
             - secretName: witt-bare-wildcard-cert
               hosts:
                 - sentry.bare.witt.kr
-        metrics:
-          enabled: true
-          serviceMonitor:
-            enabled: true
-        
+                
   destination:
     server: https://kubernetes.default.svc
     namespace: sentry
