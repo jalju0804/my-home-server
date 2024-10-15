@@ -28,7 +28,7 @@ spec:
                 - sentry.bare.witt.kr
           kafka:
             kraft:
-              enabled: true
+              enabled: false
             controller:
               replicaCount: 1
   destination:
