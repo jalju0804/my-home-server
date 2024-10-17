@@ -10,6 +10,6 @@ resources:
 - ./loki/application.yaml
 - ./phlare/application.yaml
 - ./tempo/application.yaml
-- ./sentry/application.yaml
+# - ./sentry/application.yaml
 # - ./victoriametrics/application.yaml
 # - ./opentelemetry-operator/application.yaml
