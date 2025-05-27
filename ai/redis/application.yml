@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bitnami-redis
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: redis
+    targetRevision: 19.7.0 # Bitnami Redis 차트의 특정 버전을 명시하는 것이 좋습니다. 최신 버전은 ArtifactHub에서 확인하세요.
+    # helm:
+    #   values: |
+    #     # 여기에 필요한 경우 Bitnami Redis 차트의 values.yaml 내용을 커스터마이징하여 추가합니다.
+    #     # 예시:
+    #     # auth:
+    #     #   enabled: true
+    #     #   password: "your-super-secret-password" # 실제 운영 환경에서는 Vault 등 Secret 관리 도구 연동 권장
+    #     # master:
+    #     #   persistence:
+    #     #     enabled: true
+    #     #     size: 8Gi
+    #     # replica:
+    #     #   replicaCount: 1 # 필요에 따라 레플리카 수 조정
+    #     #   persistence:
+    #     #     enabled: true # 레플리카도 퍼시스턴시를 사용할 경우
+    #     #     size: 8Gi
+    #     # sentinel:
+    #     #   enabled: false # Sentinel 사용 여부
+    #     # cluster:
+    #     #   enabled: false # Redis Cluster 모드 사용 여부
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: redis # Redis를 설치할 네임스페이스 (예: redis, cache 등)
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
