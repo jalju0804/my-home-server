@@ -27,7 +27,7 @@ spec:
               Name: "K3S PostgreSQL (NodePort)"
               Group: "Servers" 
               Username: "postgres" 
-              Host: "bitnami-postgresql .postgre.svc.cluster.local" 
+              Host: "bitnami-postgresql.postgre.svc.cluster.local" 
               Port: 5432
               SSLMode: "prefer" 
               MaintenanceDB: "postgres" 
