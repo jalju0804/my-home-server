@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://kafka-ui https://ui.charts.kafbat.io # Kafka UI (Provectus Labs) Helm 차트 저장소
+    repoURL: https://ui.charts.kafbat.io/
     chart: kafka-ui
     targetRevision: 1.5.0
     helm:
