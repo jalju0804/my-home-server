@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://charts.bitnami.com/bitnami
     chart: redis
-    targetRevision: 19.7.0 # Bitnami Redis 차트의 특정 버전을 명시하는 것이 좋습니다. 최신 버전은 ArtifactHub에서 확인하세요.
+    targetRevision: 21.1.6 
     # helm:
     #   values: |
     #     # 여기에 필요한 경우 Bitnami Redis 차트의 values.yaml 내용을 커스터마이징하여 추가합니다.
