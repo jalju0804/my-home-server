@@ -11,7 +11,7 @@ spec:
     targetRevision: 32.2.8
     helm:
       values: |
-        # SASL 클라이언트 사용자 및 비밀번호 명시적 설정
+        # SASL 클라이언트 사용자 및 비밀번호
         sasl:
           client:
             users:
@@ -19,27 +19,35 @@ spec:
             passwords:
               - "qwe1356@" 
 
+        # 리스너 설정
         listeners:
           client: 
             name: CLIENT
-            containerPort: 9092
+            containerPort: 9092 
             protocol: SASL_PLAINTEXT 
           external:
             name: EXTERNAL
             containerPort: 9095 
-            protocol: SASL_PLAINTEXT 
+            protocol: SASL_PLAINTEXT
 
         externalAccess:
           enabled: true
-          broker:
+          controller: 
             service:
-              type: NodePort
+              type: NodePort 
               ports:
                 external: 9095 
               nodePorts:
                 - 30095 
                 - 30096 
                 - 30097 
+
+          broker: 
+            service:
+              type: LoadBalancer 값
+              ports:
+                external: 9094 
+              nodePorts: [] 
   destination: 
     server: https://kubernetes.default.svc
     namespace: kafka
