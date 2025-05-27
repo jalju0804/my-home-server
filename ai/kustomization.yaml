@@ -6,4 +6,4 @@ resources:
 - ./redis/application.yml
 - ./kafka-ui/application.yml
 - ./postgre/application.yml
-- ./pgadmin/application.yml
+# - ./pgadmin/application.yml
