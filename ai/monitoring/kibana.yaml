@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kibana
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://helm.elastic.co
+    chart: kibana
+    targetRevision: 8.14.0 
+    helm:
+      values: |
+        elasticsearchHosts: "http://elasticsearch-es-http.logging.svc.cluster.local:9200"
+        replicas: 1 # 필요에 따라 조정
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: logging 
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

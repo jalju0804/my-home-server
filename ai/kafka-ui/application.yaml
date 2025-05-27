@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kafka-ui
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://provectus.github.io/provectus-charts # Kafka UI (Provectus Labs) Helm 차트 저장소
+    chart: kafka-ui
+    targetRevision: 1.5.0
+    helm:
+      values: |
+        yamlApplicationConfig:
+          kafka:
+            clusters:
+              - name: "My Kafka Cluster" # UI에 표시될 클러스터 이름
+                bootstrapServers: "bitnami-kafka-headless.kafka.svc.cluster.local:9092" # **매우 중요**: 실제 Kafka 브로커 주소로 변경하세요.
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kafka-ui 
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true # 대상 네임스페이스가 없을 경우 자동으로 생성합니다.

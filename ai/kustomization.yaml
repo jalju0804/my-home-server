@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
 - ./kafka/application.yml
 - ./redis/application.yml
+- ./kafka-ui/application.yml

@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fluent-bit
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://fluent.github.io/helm-charts
+    chart: fluent-bit
+    targetRevision: 0.48.0 # 예시 버전입니다. 최신 안정 버전을 확인하고 사용하세요. (https://artifacthub.io/packages/helm/fluent/fluent-bit)
+    helm:
+      values: |
+        config:
+          outputs: |
+            [OUTPUT]
+                Name            es
+                Match           kube.* # Kubernetes 로그만 대상으로 함 (필요에 따라 변경)
+                Host            elasticsearch-master.logging.svc.cluster.local
+                Port            9200
+                Logstash_Format On
+                Logstash_Prefix fluent-bit
+                Replace_Dots    On     
+                Retry_Limit     False 
+
+          filters: |
+            [FILTER]
+                Name                kubernetes
+                Match               kube.*
+                Kube_URL            https://kubernetes.default.svc:443
+                Kube_CA_File        /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+                Kube_Token_File     /var/run/secrets/kubernetes.io/serviceaccount/token
+                Kube_Tag_Prefix     kube.var.log.containers. 
+                Merge_Log           On                       
+                Merge_Log_Key       log_processed           
+                K8S-Logging.Parser  On                      
+                K8S-Logging.Exclude Off                     
+                Annotations         Off                    
+                Labels              Off  
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: logging # Fluent Bit를 설치할 네임스페이스 (Elasticsearch와 같거나 다를 수 있음, 예: kube-system, logging)
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
