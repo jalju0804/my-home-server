@@ -14,8 +14,8 @@ spec:
         yamlApplicationConfig:
           kafka:
             clusters:
-              - name: "My Kafka Cluster" # UI에 표시될 클러스터 이름
-                bootstrapServers: "bitnami-kafka-headless.kafka.svc.cluster.local:9092" # **매우 중요**: 실제 Kafka 브로커 주소로 변경하세요.
+              - name: "My Kafka Cluster" 
+                bootstrapServers: "bitnami-kafka.kafka.svc.cluster.local:9092"
   destination:
     server: https://kubernetes.default.svc
     namespace: kafka-ui 
