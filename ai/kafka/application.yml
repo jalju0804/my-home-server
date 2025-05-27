@@ -45,6 +45,7 @@ spec:
           broker: 
             service:
               type: ClusterIP
+              domain: "broker.placeholder.domain"
               ports:
                 external: 9094 
               nodePorts: [] 
