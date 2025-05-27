@@ -41,11 +41,11 @@ spec:
                 - 30095 
                 - 30096 
                 - 30097 
-
+              domain: 172.31.0.20
+              
           broker: 
             service:
               type: ClusterIP
-              domain: 172.31.0.20
               ports:
                 external: 9094 
               nodePorts: [] 
