@@ -5,3 +5,4 @@ resources:
 - ./kafka/application.yml
 - ./redis/application.yml
 - ./kafka-ui/application.yml
+- ./postgre/application.yml

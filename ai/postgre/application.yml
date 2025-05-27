@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bitnami-postgresql
+  namespace: argocd # ArgoCD가 설치된 네임스페이스
+spec:
+  project: default
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: postgresql
+    targetRevision: 16.7.4
+    helm:
+      values: |
+        auth:
+          postgresPassword: "qwe1356@"
+          
+        primary:
+          service:
+            type: NodePort 
+            ports:
+              postgresql: 5432 
+            nodePorts:
+              postgresql: "30432"
+
+          persistence:
+            enabled: true
+            size: 10Gi
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: postgre 
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
