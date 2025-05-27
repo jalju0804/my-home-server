@@ -13,6 +13,7 @@ spec:
       values: |
         auth:
           postgresPassword: "qwe1356@"
+          database: "aea"
           
         primary:
           service:
