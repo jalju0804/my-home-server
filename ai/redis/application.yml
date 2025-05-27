@@ -13,7 +13,7 @@ spec:
       values: |
         auth:
           enabled: true
-            password: "qwe1356@" 
+          password: "qwe1356@" 
 
         master:
           service:
