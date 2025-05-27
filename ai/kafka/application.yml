@@ -42,10 +42,11 @@ spec:
                 - 30096 
                 - 30097 
               domain: 172.31.0.20
-              
+
           broker: 
             service:
               type: ClusterIP
+              domain: "broker.unused.local" 
               ports:
                 external: 9094 
               nodePorts: [] 
