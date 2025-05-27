@@ -17,13 +17,13 @@ spec:
               - name: "My Kafka Cluster" 
                 bootstrapServers: "bitnami-kafka.kafka.svc.cluster.local:9092"
 
-          service:
-            type: NodePort
-            port: 8080
-            nodePort: 30000
-            
-          ingress:
-            enabled: false
+        service:
+          type: NodePort
+          port: 8080
+          nodePort: 30000
+
+        ingress:
+          enabled: false
   destination:
     server: https://kubernetes.default.svc
     namespace: kafka-ui 
