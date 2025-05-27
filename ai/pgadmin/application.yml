@@ -1,0 +1,48 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pgadmin4
+  namespace: argocd 
+spec:
+  project: default
+  source:
+    repoURL: https://helm.runix.net/
+    chart: pgadmin4
+    targetRevision: 1.44.0
+    helm:
+      values: |
+        env:
+          email: "admin@example.com" 
+          password: "qwe1356@"
+
+        service:
+          type: NodePort
+          port: 80 
+          nodePort: 30080 
+
+        serverDefinitions:
+          enabled: true # 서버 정보 자동 등록 활성화
+          servers:
+            myPostgresServer:
+              Name: "K3S PostgreSQL (NodePort)"
+              Group: "Servers" 
+              Username: "postgres" 
+              Host: "bitnami-postgresql .postgre.svc.cluster.local" 
+              Port: 5432
+              SSLMode: "prefer" 
+              MaintenanceDB: "postgres" 
+
+        persistentVolume:
+          enabled: true
+          size: 2Gi # 필요에 따라 크기 조정
+
+        ingress:
+          enabled: false
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: pgadmin 
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
