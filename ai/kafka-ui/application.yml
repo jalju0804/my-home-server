@@ -16,6 +16,19 @@ spec:
             clusters:
               - name: "My Kafka Cluster" 
                 bootstrapServers: "bitnami-kafka.kafka.svc.cluster.local:9092"
+
+          service:
+            type: NodePort
+            port: 8080
+            nodePort: 30000
+
+          properties:
+                  security.protocol: "SASL_PLAINTEXT"
+                  sasl.mechanism: "PLAIN"
+                  sasl.jaas.config: "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"user\" password=\"zRfvYTDQS\";"
+
+          ingress:
+            enabled: false
   destination:
     server: https://kubernetes.default.svc
     namespace: kafka-ui 
