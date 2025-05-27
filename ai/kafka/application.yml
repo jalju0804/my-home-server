@@ -9,19 +9,19 @@ spec:
     repoURL: https://charts.bitnami.com/bitnami
     chart: kafka
     targetRevision: 32.2.8
-    # helm:
-    #   values: |
-    #     # 여기에 필요한 경우 Bitnami Kafka 차트의 values.yaml 내용을 커스터마이징하여 추가합니다.
-    #     # 예시:
-    #     # replicaCount: 3
-    #     # persistence:
-    #     #   enabled: true
-    #     #   size: 10Gi
-    #     # zookeeper:
-    #     #   replicaCount: 3
-    #     #   persistence:
-    #     #     enabled: true
-    #     #     size: 8Gi
+    helm:
+      values: |
+        auth:
+          sasl:
+            enabled: false 
+            interBrokerMechanism: PLAINTEXT
+            clientUsers: []
+        listeners:
+          client: 
+            protocol: PLAINTEXT
+            port: 9092
+        advertisedListeners:
+          - PLAINTEXT://bitnami-kafka.kafka.svc.cluster.local:9092 
   destination:
     server: https://kubernetes.default.svc
     namespace: kafka
