@@ -5,40 +5,45 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
+  source: # `source` 필드 시작
     repoURL: https://charts.bitnami.com/bitnami
     chart: kafka
     targetRevision: 32.2.8
-helm:
-  values: |
-    sasl:
-      client:
-        users:
-          - "user1" 
-        passwords:
-          - "qwe1356@"
+    helm:
+      values: |
+        # SASL 클라이언트 사용자 및 비밀번호 명시적 설정
+        sasl:
+          client:
+            users:
+              - "user1" 
+            passwords:
+              - "qwe1356@" 
 
-    listeners:
-      client: 
-        name: CLIENT
-        containerPort: 9092
-        protocol: SASL_PLAINTEXT 
-      external: 
-        name: EXTERNAL
-        containerPort: 9095 
-        protocol: SASL_PLAINTEXT 
+        listeners:
+          client: 
+            name: CLIENT
+            containerPort: 9092
+            protocol: SASL_PLAINTEXT 
+          external:
+            name: EXTERNAL
+            containerPort: 9095 
+            protocol: SASL_PLAINTEXT 
 
-    externalAccess:
-      enabled: true
-      broker:
-        service:
-          type: NodePort
-          ports:
-            external: 9095 
-          nodePorts:
-            - 30095 
-            - 30096 
-            - 30097 
-  destination:
+        externalAccess:
+          enabled: true
+          broker:
+            service:
+              type: NodePort
+              ports:
+                external: 9095 
+              nodePorts:
+                - 30095 
+                - 30096 
+                - 30097 
+  destination: 
     server: https://kubernetes.default.svc
     namespace: kafka
+  syncPolicy: 
+    automated:
+      prune: true
+      selfHeal: true
