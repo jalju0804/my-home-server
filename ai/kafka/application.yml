@@ -44,7 +44,7 @@ spec:
 
           broker: 
             service:
-              type: LoadBalancer 값
+              type: ClusterIP
               ports:
                 external: 9094 
               nodePorts: [] 
