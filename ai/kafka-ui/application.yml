@@ -14,8 +14,13 @@ spec:
         yamlApplicationConfig:
           kafka:
             clusters:
-              - name: "My Kafka Cluster" 
+              - name: "My Kafka Cluster (SASL)"
                 bootstrapServers: "bitnami-kafka.kafka.svc.cluster.local:9092"
+                properties:
+                  security.protocol: "SASL_PLAINTEXT"
+                  sasl.mechanism: "PLAIN"
+                  sasl.jaas.config: "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"user1\" password=\"qwe1356@\";"
+
 
         service:
           type: NodePort

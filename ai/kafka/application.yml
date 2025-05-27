@@ -9,23 +9,36 @@ spec:
     repoURL: https://charts.bitnami.com/bitnami
     chart: kafka
     targetRevision: 32.2.8
-    helm:
-      values: |
-        auth:
-          sasl:
-            enabled: false 
-            interBrokerMechanism: PLAINTEXT
-            clientUsers: []
-        listeners:
-          client: 
-            protocol: PLAINTEXT
-            port: 9092
-        advertisedListeners:
-          - PLAINTEXT://bitnami-kafka.kafka.svc.cluster.local:9092 
+helm:
+  values: |
+    sasl:
+      client:
+        users:
+          - "user1" 
+        passwords:
+          - "qwe1356@"
+
+    listeners:
+      client: 
+        name: CLIENT
+        containerPort: 9092
+        protocol: SASL_PLAINTEXT 
+      external: 
+        name: EXTERNAL
+        containerPort: 9095 
+        protocol: SASL_PLAINTEXT 
+
+    externalAccess:
+      enabled: true
+      broker:
+        service:
+          type: NodePort
+          ports:
+            external: 9095 
+          nodePorts:
+            - 30095 
+            - 30096 
+            - 30097 
   destination:
     server: https://kubernetes.default.svc
     namespace: kafka
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
