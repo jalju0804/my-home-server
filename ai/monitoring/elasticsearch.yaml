@@ -1,68 +1,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: elasticsearch-elastic
-  namespace: argocd # ArgoCD가 설치된 네임스페이스
+  name: eck-operator
+  namespace: argocd 
 spec:
   project: default
   source:
-    repoURL: https://helm.elastic.co
-    chart: elasticsearch
-    targetRevision: "8.5.1" 
+    repoURL: https://helm.elastic.co 
+    chart: eck-operator
+    targetRevision: 2.12.1 
     helm:
       values: |
-        roles:
-          - master
-          - data
-          - ingest
-          - ml
-        
-        replicas: 3
-        minimumMasterNodes: 2 # 3개 노드 클러스터에서 일반적인 설정
-
-        image: "docker.elastic.co/elasticsearch/elasticsearch"
-        imageTag: "8.5.1" 
-        imagePullPolicy: "IfNotPresent"
-
-        secret:
-          enabled: true
-
-        persistence:
-          enabled: true
-          
-        volumeClaimTemplate:
-          accessModes: ["ReadWriteOnce"] 
-          resources:
-            requests:
-              storage: 10Gi 
-
-        httpPort: 9200
-        service:
-          enabled: true
-          type: ClusterIP 
-          ports: 
-            http: 9200
-        
-        podSecurityContext:
-          fsGroup: 1000
-          runAsUser: 1000
-        
-        securityContext:
-          capabilities:
-            drop:
-              - ALL
-          runAsNonRoot: true
-          runAsUser: 1000
-
-        sysctlInitContainer:
-          enabled: true
+        # 대부분의 경우 ECK 오퍼레이터의 기본 values로 충분합니다.
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: logging 
+    namespace: elastic-system
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true 
+      - CreateNamespace=true # 'elastic-system' 네임스페이스가 없다면 자동으로 생성합니다.
