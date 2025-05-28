@@ -9,3 +9,10 @@ spec:
   count: 1       
   elasticsearchRef:
     name: my-es-cluster 
+  http: 
+    service:
+      spec:
+        type: NodePort 
+        ports:
+          - port: 5601 
+            nodePort: 30601 
