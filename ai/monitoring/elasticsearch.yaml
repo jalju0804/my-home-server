@@ -1,28 +1,76 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: elasticsearch
-  namespace: argocd
+  name: elasticsearch-elastic
+  namespace: argocd # ArgoCD가 설치된 네임스페이스
 spec:
   project: default
   source:
     repoURL: https://helm.elastic.co
     chart: elasticsearch
-    targetRevision: 8.14.0 
+    targetRevision: "8.5.1" 
     helm:
       values: |
-        replicas: 1
-        minimumMasterNodes: 1
+        roles:
+          - master
+          - data
+          - ingest
+          - ml
         
+        replicas: 3
+        minimumMasterNodes: 2 # 3개 노드 클러스터에서 일반적인 설정
+
+        image: "docker.elastic.co/elasticsearch/elasticsearch"
+        imageTag: "8.5.1" 
+        imagePullPolicy: "IfNotPresent"
+
+        secret:
+          enabled: true
+          password: "qwe1356@"
+
+        resources:
+          requests:
+            cpu: "1000m"
+            memory: "2Gi"
+          limits:
+            cpu: "1000m"
+            memory: "2Gi"
+
         persistence:
           enabled: true
-          size: 20Gi # 필요에 따라 크기 조정
+          volumeClaimTemplate:
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 30Gi # 기본값
+
+        httpPort: 9200
+        service:
+          enabled: true
+          type: ClusterIP # 내부 접속용이므로 ClusterIP 유지
+          ports: 
+            http: 9200
         
-        protocol: http
+        podSecurityContext:
+          fsGroup: 1000
+          runAsUser: 1000
+        
+        securityContext:
+          capabilities:
+            drop:
+              - ALL
+          runAsNonRoot: true
+          runAsUser: 1000
+
+        sysctlInitContainer:
+          enabled: true
+
   destination:
     server: https://kubernetes.default.svc
-    namespace: logging
+    namespace: logging 
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true 
