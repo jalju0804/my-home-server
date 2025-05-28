@@ -29,11 +29,12 @@ spec:
 
         persistence:
           enabled: true
-          volumeClaimTemplate:
-            accessModes: ["ReadWriteOnce"]
-            resources:
-              requests:
-                storage: 10Gi
+          
+        volumeClaimTemplate:
+          accessModes: ["ReadWriteOnce"] 
+          resources:
+            requests:
+              storage: 10Gi 
 
         httpPort: 9200
         service:
