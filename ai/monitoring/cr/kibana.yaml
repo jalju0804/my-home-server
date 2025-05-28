@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-kibana-app
+  namespace: argocd # ArgoCD가 설치된 네임스페이스
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/jalju0804/my-home-server
+    path: ai/monitoring/cr/kibana.yaml  # 예: eck/elasticsearch (리포지토리 내 CR 파일이 있는 경로)
+    targetRevision: HEAD 
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: logging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true 

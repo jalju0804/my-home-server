@@ -1,0 +1,11 @@
+# 파일명 예시: my-kibana-instance-cr.yaml (Git 리포지토리에 저장)
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: my-kibana-instance
+  namespace: logging 
+spec:
+  version: 8.5.1 
+  count: 1       
+  elasticsearchRef:
+    name: my-es-cluster 
