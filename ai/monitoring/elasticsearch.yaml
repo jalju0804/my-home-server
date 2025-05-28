@@ -28,26 +28,18 @@ spec:
           enabled: true
           password: "qwe1356@"
 
-        resources:
-          requests:
-            cpu: "1000m"
-            memory: "2Gi"
-          limits:
-            cpu: "1000m"
-            memory: "2Gi"
-
         persistence:
           enabled: true
           volumeClaimTemplate:
             accessModes: ["ReadWriteOnce"]
             resources:
               requests:
-                storage: 30Gi # 기본값
+                storage: 30Gi
 
         httpPort: 9200
         service:
           enabled: true
-          type: ClusterIP # 내부 접속용이므로 ClusterIP 유지
+          type: ClusterIP 
           ports: 
             http: 9200
         
