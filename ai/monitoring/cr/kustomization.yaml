@@ -3,3 +3,4 @@ kind: Kustomization
 
 resources:
 - ./elasticsearch.yaml
+- ./kibana.yaml
