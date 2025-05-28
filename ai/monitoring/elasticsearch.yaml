@@ -26,7 +26,6 @@ spec:
 
         secret:
           enabled: true
-          password: "qwe1356@"
 
         persistence:
           enabled: true
