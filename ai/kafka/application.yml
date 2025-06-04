@@ -41,7 +41,7 @@ spec:
                 - 30095 
                 - 30096 
                 - 30097 
-              domain: 172.31.0.20
+              domain: jalju.iptime.org 
 
           broker: 
             service:
