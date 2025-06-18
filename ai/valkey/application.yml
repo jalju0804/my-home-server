@@ -25,6 +25,8 @@ spec:
           persistence:
             enabled: true
             size: 1Gi 
+          service:
+            type: NodePort
         metrics:
           enabled: false
   destination:
