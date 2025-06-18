@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: valkey-dev
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: valkey
+    targetRevision: 3.0.11
+
+    helm:
+      values: |
+        architecture: standalone
+        
+        replica:
+          replicaCount: 0
+        auth:
+          enabled: false
+          
+        primary:
+          resourcesPreset: "nano"
+          persistence:
+            enabled: true
+            size: 1Gi 
+        metrics:
+          enabled: false
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: valkey
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

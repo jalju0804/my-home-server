@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
 - ./kafka/application.yml
-- ./redis/application.yml
+- ./valkey/application.yml
 - ./kafka-ui/application.yml
 - ./postgre/application.yml
 # - ./pgadmin/application.yml
