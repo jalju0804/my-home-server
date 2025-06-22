@@ -75,6 +75,11 @@ spec:
                 Time_Format %Y-%m-%dT%H:%M:%S.%L
 
         logLevel: info
+        
+        service:
+          type: NodePort
+          port: 2020
+          nodePort: 30020
 
   destination:
     server: https://kubernetes.default.svc
