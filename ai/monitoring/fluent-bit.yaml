@@ -49,11 +49,11 @@ spec:
                 K8S-Logging.Parser On
                 K8S-Logging.Exclude On
 
-            [FILTER]
-                Name grep
-                Match kube.*
-                # kubernetes.labels.app 필드에 'spring' 문자열이 포함된 로그만 허용합니다.
-                Regex kubernetes.labels.app spring
+            # [FILTER]
+            #     Name grep
+            #     Match kube.*
+            #     # kubernetes.labels.app 필드에 'spring' 문자열이 포함된 로그만 허용합니다.
+            #     Regex kubernetes.labels.app spring
 
           outputs: |
             [OUTPUT]
@@ -75,7 +75,7 @@ spec:
                 Time_Format %Y-%m-%dT%H:%M:%S.%L
 
         logLevel: info
-        
+
         service:
           type: NodePort
           port: 2020
