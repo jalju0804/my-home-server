@@ -2,13 +2,13 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: fluent-bit
-  namespace: argocd 
+  namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://fluent.github.io/helm-charts
     chart: fluent-bit
-    targetRevision: 0.48.0 
+    targetRevision: 0.48.0
     helm:
       values: |
         image:
@@ -45,20 +45,30 @@ spec:
                 Name kubernetes
                 Match kube.*
                 Merge_Log On
-                Keep_Log Off 
+                Keep_Log Off
                 K8S-Logging.Parser On
                 K8S-Logging.Exclude On
 
+            # Spring App 로그만 필터링하기 위한 Grep 필터 추가
+            # 중요: 이 필터는 Spring Pod에 'app: spring'과 같은 레이블이 있다고 가정합니다.
+            # Pod의 레이블에 맞게 'kubernetes.labels.app' 키와 'spring' 값을 수정하세요.
+            [FILTER]
+                Name grep
+                Match kube.*
+                # 'kubernetes.labels.app' 필드에 'spring' 문자열이 포함된 로그만 허용합니다.
+                Regex kubernetes.labels.app spring
+
           outputs: |
             [OUTPUT]
-                Name es 
+                Name es
                 Match kube.*
-                Host elasticsearch-es-http.logging.svc.cluster.local
-                Port 9200 # Elasticsearch HTTP 포트
-                Logstash_Format On 
-                Logstash_Prefix fluent-bit 
-                Replace_Dots On    
-                Retry_Limit False  
+                # 사용자가 제공한 Elasticsearch 서비스 호스트로 수정
+                Host my-es-cluster-es-http.logging.svc.cluster.local
+                Port 9200
+                Logstash_Format On
+                Logstash_Prefix fluent-bit
+                Replace_Dots On
+                Retry_Limit False
 
           customParsers: |
             [PARSER]
@@ -67,15 +77,15 @@ spec:
                 Time_Keep Off
                 Time_Key time
                 Time_Format %Y-%m-%dT%H:%M:%S.%L
-        
+
         logLevel: info
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: logging 
+    namespace: logging
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true 
+      - CreateNamespace=true
