@@ -3,3 +3,4 @@ kind: Kustomization
 
 resources:
 - ./eck-operator.yaml
+- ./fluent-bit.yaml
