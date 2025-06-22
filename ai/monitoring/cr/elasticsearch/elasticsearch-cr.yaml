@@ -7,7 +7,7 @@ spec:
   version: 8.5.1       
   nodeSets:
   - name: default
-    count: 3           
+    count: 1           
     config:
       node.store.allow_mmap: false
     podTemplate:
@@ -22,7 +22,7 @@ spec:
         - name: elasticsearch
           resources:
             requests:
-              memory: "4Gi" 
+              memory: "2Gi" 
               cpu: "1"
             limits:
               memory: "4Gi"
