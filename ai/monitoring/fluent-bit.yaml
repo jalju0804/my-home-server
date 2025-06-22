@@ -72,12 +72,13 @@ spec:
                 key: elastic
 
         service:
-          type: ClusterIP
+          type: NodePort
           ports:
             - port: 8888
               targetPort: 8888
               protocol: TCP
               name: http
+              nodePort: 30888
 
   destination:
     server: https://kubernetes.default.svc
