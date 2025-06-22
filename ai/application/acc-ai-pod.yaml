@@ -1,26 +1,32 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: acc-ai-pod         
+  name: acc-ai-deployment
   labels:
-    app: acc-ai             
+    app: acc-ai
 spec:
-  containers:
-  - name: acc-ai-container 
-    image: dlckswn334/acc-ai:latest 
-    imagePullPolicy: IfNotPresent   
-    
-    ports:
-    - containerPort: 8080     
-      name: http
-      protocol: TCP
-
-    resources:
-      requests:
-        cpu: "100m"         
-        memory: "256Mi"    
-      limits:   
-        cpu: "500m"         
-        memory: "512Mi"    
-
-  restartPolicy: Always 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: acc-ai 
+  template: 
+    metadata:
+      labels:
+        app: acc-ai 
+    spec:
+      containers:
+      - name: acc-ai-container
+        image: dlckswn334/acc-ai:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+      restartPolicy: Always
