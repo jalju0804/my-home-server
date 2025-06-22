@@ -49,6 +49,7 @@ spec:
                 K8S-Logging.Parser On
                 K8S-Logging.Exclude On
 
+            # Spring 로그 필터는 일단 주석 처리하여 모든 로그가 들어가도록 합니다.
             # [FILTER]
             #     Name grep
             #     Match kube.*
@@ -57,14 +58,20 @@ spec:
 
           outputs: |
             [OUTPUT]
-                Name es
-                Match kube.*
-                Host my-es-cluster-es-http.logging.svc.cluster.local
-                Port 9200
+                Name            es
+                Match           *
+                Host            my-es-cluster-es-http.logging.svc.cluster.local
+                Port            9200
                 Logstash_Format On
                 Logstash_Prefix fluent-bit
-                Replace_Dots On
-                Retry_Limit False
+                Replace_Dots    On
+                Retry_Limit     False
+                Buffer_Size     64k
+                # HTTPS 및 인증 설정
+                tls             On
+                tls.verify      Off
+                HTTP_User       elastic
+                HTTP_Passwd     ${ELASTIC_PASSWORD}
 
           customParsers: |
             [PARSER]
@@ -79,6 +86,7 @@ spec:
         service:
           type: NodePort
           port: 2020
+    
           nodePort: 30020
 
   destination:
