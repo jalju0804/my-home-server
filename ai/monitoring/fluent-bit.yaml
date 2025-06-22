@@ -48,11 +48,11 @@ spec:
                 Keep_Log Off
                 K8S-Logging.Parser On
                 K8S-Logging.Exclude On
-                
+
             [FILTER]
                 Name    grep
                 Match   *
-                Exclude kubernetes.namespace_name ^(kube-system|kube-public|kube-node-lease|logging)$
+                Exclude kubernetes.namespace_name ^(kube-system|kube-public|kube-node-lease|logging|monitoring|loki)$
 
             # Spring 로그 필터 (나중에 필요시 주석을 해제하여 사용)
             # [FILTER]
