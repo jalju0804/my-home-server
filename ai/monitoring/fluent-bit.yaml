@@ -48,8 +48,13 @@ spec:
                 Keep_Log Off
                 K8S-Logging.Parser On
                 K8S-Logging.Exclude On
+                
+            [FILTER]
+                Name    grep
+                Match   *
+                Exclude kubernetes.namespace_name ^(kube-system|kube-public|kube-node-lease|logging)$
 
-            # Spring 로그 필터는 일단 주석 처리하여 모든 로그가 들어가도록 합니다.
+            # Spring 로그 필터 (나중에 필요시 주석을 해제하여 사용)
             # [FILTER]
             #     Name grep
             #     Match kube.*
@@ -84,7 +89,6 @@ spec:
 
         logLevel: info
 
-        # 비밀번호를 Kubernetes Secret에서 환경변수로 주입
         env:
           - name: ELASTIC_PASSWORD
             valueFrom:
@@ -92,7 +96,6 @@ spec:
                 name: my-es-cluster-es-elastic-user
                 key: elastic
 
-        # Fluent Bit 메트릭스 포트를 NodePort로 노출
         service:
           type: NodePort
           port: 2020
