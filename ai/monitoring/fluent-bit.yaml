@@ -72,6 +72,7 @@ spec:
                 tls.verify      Off
                 HTTP_User       elastic
                 HTTP_Passwd     ${ELASTIC_PASSWORD}
+                Suppress_Type_Name On
 
           customParsers: |
             [PARSER]
@@ -83,6 +84,7 @@ spec:
 
         logLevel: info
 
+        # 비밀번호를 Kubernetes Secret에서 환경변수로 주입
         env:
           - name: ELASTIC_PASSWORD
             valueFrom:
@@ -90,6 +92,7 @@ spec:
                 name: my-es-cluster-es-elastic-user
                 key: elastic
 
+        # Fluent Bit 메트릭스 포트를 NodePort로 노출
         service:
           type: NodePort
           port: 2020
