@@ -6,4 +6,5 @@ resources:
 - ./valkey/application.yml
 - ./kafka-ui/application.yml
 - ./postgre/application.yml
+- ./application/acc-ai-pod.yaml
 # - ./pgadmin/application.yml
