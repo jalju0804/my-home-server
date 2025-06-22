@@ -83,6 +83,13 @@ spec:
 
         logLevel: info
 
+        extraEnv:
+          - name: ELASTIC_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: my-es-cluster-es-elastic-user
+                key: elastic
+                
         service:
           type: NodePort
           port: 2020
