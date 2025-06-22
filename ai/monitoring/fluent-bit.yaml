@@ -11,6 +11,10 @@ spec:
     targetRevision: 0.48.0
     helm:
       values: |
+        # Deployment으로 변경 (DaemonSet이 더 이상 필요 없음)
+        kind: Deployment
+        replicaCount: 2
+
         image:
           repository: cr.fluentbit.io/fluent/fluent-bit
           pullPolicy: IfNotPresent
@@ -21,45 +25,25 @@ spec:
         config:
           service: |
             [SERVICE]
-                Daemon Off
-                Flush {{ .Values.flush | default 1 }}
-                Log_Level {{ .Values.logLevel | default "info" }}
-                Parsers_File /fluent-bit/etc/parsers.conf
-                Parsers_File /fluent-bit/etc/conf/custom_parsers.conf
-                HTTP_Server On
-                HTTP_Listen 0.0.0.0
-                HTTP_Port {{ .Values.metricsPort | default 2020 }}
-                Health_Check On
+                Flush           5
+                Log_Level       info
+                Parsers_File    parsers.conf
+
 
           inputs: |
             [INPUT]
-                Name tail
-                Path /var/log/containers/*.log
-                multiline.parser docker, cri
-                Tag kube.*
-                Mem_Buf_Limit 5MB
-                Skip_Long_Lines On
+                Name            http
+                Host            0.0.0.0
+                Port            8888
+                Tag             http.spring.log
 
           filters: |
             [FILTER]
-                Name kubernetes
-                Match kube.*
-                Merge_Log On
-                Keep_Log Off
-                K8S-Logging.Parser On
-                K8S-Logging.Exclude On
-
-            [FILTER]
-                Name    grep
-                Match   *
-                Exclude kubernetes.namespace_name ^(kube-system|kube-public|kube-node-lease|logging|monitoring|loki)$
-
-            # Spring 로그 필터 (나중에 필요시 주석을 해제하여 사용)
-            # [FILTER]
-            #     Name grep
-            #     Match kube.*
-            #     # kubernetes.labels.app 필드에 'spring' 문자열이 포함된 로그만 허용합니다.
-            #     Regex kubernetes.labels.app spring
+                Name nest
+                Match *
+                Operation lift
+                Nested_under kubernetes
+                Add_prefix kubernetes_
 
           outputs: |
             [OUTPUT]
@@ -68,27 +52,17 @@ spec:
                 Host            my-es-cluster-es-http.logging.svc.cluster.local
                 Port            9200
                 Logstash_Format On
-                Logstash_Prefix fluent-bit
+                Logstash_Prefix fluent-bit-spring-direct
                 Replace_Dots    On
                 Retry_Limit     False
                 Buffer_Size     64k
-                # HTTPS 및 인증 설정
                 tls             On
                 tls.verify      Off
                 HTTP_User       elastic
                 HTTP_Passwd     ${ELASTIC_PASSWORD}
                 Suppress_Type_Name On
 
-          customParsers: |
-            [PARSER]
-                Name docker_no_time
-                Format json
-                Time_Keep Off
-                Time_Key time
-                Time_Format %Y-%m-%dT%H:%M:%S.%L
-
-        logLevel: info
-
+        # 비밀번호 주입은 동일하게 사용
         env:
           - name: ELASTIC_PASSWORD
             valueFrom:
@@ -96,10 +70,14 @@ spec:
                 name: my-es-cluster-es-elastic-user
                 key: elastic
 
+        # Service: 8888 포트를 노출하도록 변경
         service:
-          type: NodePort
-          port: 2020
-          nodePort: 30020
+          type: ClusterIP # 외부 노출은 Ingress로 처리
+          ports:
+            - port: 8888
+              targetPort: 8888
+              protocol: TCP
+              name: http
 
   destination:
     server: https://kubernetes.default.svc
