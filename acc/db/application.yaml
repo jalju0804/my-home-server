@@ -1,0 +1,94 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mariadb-dev
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: mariadb
+    targetRevision: 21.0.1
+    helm:
+      values: |
+        auth:
+          rootPassword: "Asdf1234!"
+          database: "acc"
+          username: "accadmin"
+          password: "Asdf1234!"
+          
+        architecture: standalone
+        
+        primary:
+          service:
+            type: NodePort 
+            nodePorts:
+              mysql: "30306"  
+            ports:
+              mysql: 3306   
+          
+          persistence:
+            enabled: true
+            size: 10Gi
+            storageClass: ""
+            
+          resourcesPreset: "micro"
+          
+          configuration: |-
+            [mysqld]
+            skip-name-resolve
+            explicit_defaults_for_timestamp
+            basedir=/opt/bitnami/mariadb
+            datadir=/bitnami/mariadb/data
+            plugin_dir=/opt/bitnami/mariadb/plugin
+            port=3306
+            socket=/opt/bitnami/mariadb/tmp/mysql.sock
+            tmpdir=/opt/bitnami/mariadb/tmp
+            max_allowed_packet=16M
+            bind-address=*
+            pid-file=/opt/bitnami/mariadb/tmp/mysqld.pid
+            log-error=/opt/bitnami/mariadb/logs/mysqld.log
+            character-set-server=utf8mb4
+            collation-server=utf8mb4_unicode_ci
+            slow_query_log=0
+            long_query_time=10.0
+            binlog_expire_logs_seconds=2592000
+            
+            innodb_buffer_pool_size=128M
+            innodb_log_file_size=32M
+            innodb_flush_log_at_trx_commit=1
+            sync_binlog=1
+            
+            max_connections=50
+            max_connect_errors=50
+            wait_timeout=28800
+            interactive_timeout=28800
+            
+            [client]
+            port=3306
+            socket=/opt/bitnami/mariadb/tmp/mysql.sock
+            default-character-set=utf8mb4
+            plugin_dir=/opt/bitnami/mariadb/plugin
+            
+            [manager]
+            port=3306
+            socket=/opt/bitnami/mariadb/tmp/mysql.sock
+            pid-file=/opt/bitnami/mariadb/tmp/mysqld.pid
+            
+        metrics:
+          enabled: false
+          
+        networkPolicy:
+          enabled: true
+          allowExternal: true
+          
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: mariadb
+    
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
