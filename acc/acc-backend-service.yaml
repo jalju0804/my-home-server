@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: acc-backend
+  namespace: acc
+  labels:
+    app: acc-backend
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+    nodePort: 30080
+    protocol: TCP
+  selector:
+    app: acc-backend
