@@ -15,7 +15,7 @@ spec:
           rootPassword: "rootpw"
           database: "aoldaacc"
           username: "aoldaacc"
-          password: "aoldaacc123@"
+          password: "rootpw"
           
         architecture: standalone
         
