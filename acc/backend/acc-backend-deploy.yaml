@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: acc-backend
-          image: nudgedev/witt-backend:ad1d11b79ace5db7953cd70d7911f4ff910fc2e6
+          image: imagename
           ports:
             - containerPort: 8080
           resources:

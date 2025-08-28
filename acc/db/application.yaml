@@ -12,10 +12,10 @@ spec:
     helm:
       values: |
         auth:
-          rootPassword: "Asdf1234!"
-          database: "acc"
-          username: "accadmin"
-          password: "Asdf1234!"
+          rootPassword: "rootpw"
+          database: "aoldaacc"
+          username: "aoldaacc"
+          password: "aoldaacc123@"
           
         architecture: standalone
         
