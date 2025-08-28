@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: acc-backend
-          image: dlckswn334/acc:tmp1
+          image: dlckswn334/acc:tmp2
           ports:
             - containerPort: 8080
           resources:
