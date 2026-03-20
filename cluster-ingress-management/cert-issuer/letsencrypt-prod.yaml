@@ -5,16 +5,12 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: dlckswn334@ajou.ac.kr
+    email: chanju0804@gmail.com
     privateKeySecretRef:
       name: le-wildcard-issuer
     solvers:
       - dns01:
-          route53:
-            region: ap-northeast-2
-            accessKeyIDSecretRef:
-              name: aws-route53-creds
-              key: access-key
-            secretAccessKeySecretRef:
-              name: aws-route53-creds
-              key: secret-access-key
+          cloudflare:
+            apiTokenSecretRef:
+              name: cloudflare-api-token
+              key: api-token

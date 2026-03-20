@@ -2,11 +2,11 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: witt-bare-wildcard-cert
-  namespace: ingress-nginx
+  namespace: istio-system
 spec:
   dnsNames:
-    - '*.bare.witt.kr'
+    - '*.jalju.com'
   issuerRef:
     kind: ClusterIssuer
     name: le-wildcard-issuer
-  secretName: witt-bare-wildcard-cert
+  secretName: wildcard-jalju-com-tls

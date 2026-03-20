@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - letsencrypt-prod.yaml
   - certificates.yaml
+  - cloudflare-api-token-secret.yaml
