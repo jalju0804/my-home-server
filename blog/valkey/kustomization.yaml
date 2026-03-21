@@ -3,4 +3,4 @@ kind: Kustomization
 namespace: blog
 
 resources:
-- ./application.yaml
+- ./application.yml
