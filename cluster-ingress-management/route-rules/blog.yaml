@@ -6,6 +6,7 @@ metadata:
 spec:
   hosts:
     - "jalju.com"
+    - "blog.jalju.com"
   gateways:
     - public-gateway
   http:

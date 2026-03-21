@@ -13,6 +13,7 @@ spec:
         protocol: HTTP
       hosts:
         - "jalju.com"
+        - "blog.jalju.com"
       tls:
         httpsRedirect: true
     - port:
@@ -21,6 +22,7 @@ spec:
         protocol: HTTPS
       hosts:
         - "jalju.com"
+        - "blog.jalju.com"
       tls:
         mode: SIMPLE
         credentialName: wildcard-jalju-com-tls
