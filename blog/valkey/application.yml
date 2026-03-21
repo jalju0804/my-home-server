@@ -15,6 +15,10 @@ spec:
       values: |
         architecture: standalone
 
+        image:
+          repository: bitnami/valkey
+          tag: latest
+
         auth:
           enabled: false
 
