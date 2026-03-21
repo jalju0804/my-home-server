@@ -29,7 +29,7 @@ spec:
         - name: ghcr-secret
       containers:
         - name: notion-blog
-          image: ghcr.io/jalju0804/my-blog:sha-aad129b
+          image: ghcr.io/jalju0804/my-blog:sha-79c0229
           ports:
             - containerPort: 3000
           envFrom:
