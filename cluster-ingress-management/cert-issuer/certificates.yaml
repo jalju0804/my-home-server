@@ -6,6 +6,7 @@ metadata:
 spec:
   dnsNames:
     - '*.jalju.com'
+    - 'jalju.com'
   issuerRef:
     kind: ClusterIssuer
     name: le-wildcard-issuer

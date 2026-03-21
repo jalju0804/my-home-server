@@ -3,8 +3,4 @@ kind: Kustomization
 
 resources:
   - gateway.yaml
-  - argocd.yaml
-  - grafana.yaml
-  - loki.yaml
-  - ngrinder.yaml
-  - sentry.yaml
+  - blog.yaml

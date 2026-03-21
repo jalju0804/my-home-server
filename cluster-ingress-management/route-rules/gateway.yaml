@@ -12,11 +12,7 @@ spec:
         name: http
         protocol: HTTP
       hosts:
-        - "argocd.jalju.com"
-        - "grafana.jalju.com"
-        - "loki.jalju.com"
-        - "ngrinder.jalju.com"
-        - "sentry.jalju.com"
+        - "jalju.com"
       tls:
         httpsRedirect: true
     - port:
@@ -24,11 +20,7 @@ spec:
         name: https
         protocol: HTTPS
       hosts:
-        - "argocd.jalju.com"
-        - "grafana.jalju.com"
-        - "loki.jalju.com"
-        - "ngrinder.jalju.com"
-        - "sentry.jalju.com"
+        - "jalju.com"
       tls:
         mode: SIMPLE
         credentialName: wildcard-jalju-com-tls
