@@ -2,13 +2,14 @@ apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
   name: blog
-  namespace: istio-system
+  # Same namespace as Gateway so ingressgateway reliably receives this route (avoids cross-NS 404 NR).
+  namespace: istio-ingress
 spec:
   hosts:
     - "jalju.com"
     - "blog.jalju.com"
   gateways:
-    - istio-ingress/public-gateway
+    - public-gateway
   http:
     - match:
         - uri:
