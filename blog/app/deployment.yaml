@@ -6,10 +6,20 @@ metadata:
   labels:
     app: notion-blog
 spec:
-  replicas: 1
+  replicas: 2
+  revisionHistoryLimit: 2
   selector:
     matchLabels:
       app: notion-blog
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      # 무중단에 가깝게: 기존 Pod은 Ready 상태 유지(maxUnavailable=0)
+      # 새 Pod을 추가로 띄움(maxSurge=1)
+      maxSurge: 1
+      maxUnavailable: 0
+  minReadySeconds: 5
+  progressDeadlineSeconds: 600
   template:
     metadata:
       labels:
