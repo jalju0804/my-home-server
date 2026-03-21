@@ -14,19 +14,18 @@ spec:
     helm:
       values: |
         architecture: standalone
-        
-        replica:
-          replicaCount: 0
+
         auth:
           enabled: false
-          
+
         primary:
+          replicaCount: 1
           resourcesPreset: "nano"
           persistence:
             enabled: true
             size: 1Gi 
           service:
-            type: NodePort
+            type: ClusterIP
         metrics:
           enabled: false
   destination:
