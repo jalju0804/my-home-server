@@ -7,7 +7,7 @@ spec:
   hosts:
     - "ngrinder.jalju.com"
   gateways:
-    - public-gateway
+    - istio-ingress/public-gateway
   http:
     - match:
         - uri:

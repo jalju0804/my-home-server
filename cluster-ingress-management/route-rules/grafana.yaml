@@ -7,7 +7,7 @@ spec:
   hosts:
     - "grafana.jalju.com"
   gateways:
-    - public-gateway
+    - istio-ingress/public-gateway
   http:
     - match:
         - uri:

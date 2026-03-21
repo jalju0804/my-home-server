@@ -2,7 +2,8 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: witt-bare-wildcard-cert
-  namespace: istio-system
+  # Same namespace as Gateway + ingressgateway workload (TLS secret for credentialName).
+  namespace: istio-ingress
 spec:
   dnsNames:
     - '*.jalju.com'

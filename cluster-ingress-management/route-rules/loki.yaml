@@ -7,7 +7,7 @@ spec:
   hosts:
     - "loki.jalju.com"
   gateways:
-    - public-gateway
+    - istio-ingress/public-gateway
   http:
     - match:
         - uri:
