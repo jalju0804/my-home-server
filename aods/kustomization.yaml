@@ -5,3 +5,4 @@ resources:
   - ./flux/application.yaml
   - ./vault/application.yaml
   - ./prometheus/application.yaml
+  - ./prometheus-operator-crds/application.yaml
