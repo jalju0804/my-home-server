@@ -15,3 +15,11 @@ argocd-password: ## Show admin password for ArgoCD
 .PHONY: grafana-password
 grafana-password: ## Show admin password for Grafana
 	@kubectl get secrets -n prometheus prometheus-grafana -o jsonpath="{.data.admin-password}" | base64 -d
+
+.PHONY: deploy-auth
+deploy-auth: ## Deploy only auth applications (e.g., Vault) via kustomize
+	kustomize build ./manifests/applications/auth | kubectl apply -f -
+
+.PHONY: deploy-flux
+deploy-flux: ## Deploy only flux application via kustomize
+	kustomize build ./manifests/applications/flux | kubectl apply -f -
