@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ./flux/application.yaml
   - ./vault/application.yaml
+  - ./prometheus/application.yaml
