@@ -6,6 +6,7 @@ resources:
   - ../../ai
   - ../../ai/monitoring
   - ../../ai/monitoring/cr
+  - ../../blog
   - ../../blog/valkey
   - ../../cluster-ingress-management
   - ../../istio
