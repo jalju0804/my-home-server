@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - gateway.yaml
   - blog.yaml
+  - bear-feast.yaml

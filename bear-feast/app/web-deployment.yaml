@@ -23,6 +23,11 @@ spec:
       containers:
         - name: bear-feast-web
           image: ghcr.io/jalju0804/bear-feast-web:sha-0db3e6f07e7210122306c11de024bd8aa6e6bd9b
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              sed -i 's|http://localhost:8080|https://bear-feast-api.jalju.com|g' /usr/share/nginx/html/assets/*.js
+              nginx -g 'daemon off;'
           ports:
             - name: http
               containerPort: 80

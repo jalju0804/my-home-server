@@ -1,0 +1,40 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: bear-feast
+  # Same namespace as Gateway so ingressgateway reliably receives this route (avoids cross-NS 404 NR).
+  namespace: istio-ingress
+spec:
+  hosts:
+    - "bear-feast.jalju.com"
+  gateways:
+    - public-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: bear-feast-web.shared.svc.cluster.local
+            port:
+              number: 80
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: bear-feast-api
+  namespace: istio-ingress
+spec:
+  hosts:
+    - "bear-feast-api.jalju.com"
+  gateways:
+    - public-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: bear-feast-api.shared.svc.cluster.local
+            port:
+              number: 8080
