@@ -11,6 +11,8 @@ spec:
     targetRevision: 16.7.4
     helm:
       values: |
+        image:
+          tag: "latest"
         auth:
           postgresPassword: "qwe1356@"
           database: "aea"
