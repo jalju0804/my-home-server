@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bear-feast
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/jalju0804/my-home-server.git
+    targetRevision: HEAD
+    path: bear-feast/app
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: shared
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

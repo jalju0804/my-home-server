@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bear-feast-web
+  namespace: shared
+  labels:
+    app: bear-feast-web
+    app.kubernetes.io/name: bear-feast-web
+    app.kubernetes.io/part-of: shared
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bear-feast-web
+      app.kubernetes.io/name: bear-feast-web
+  template:
+    metadata:
+      labels:
+        app: bear-feast-web
+        app.kubernetes.io/name: bear-feast-web
+        app.kubernetes.io/part-of: shared
+    spec:
+      containers:
+        - name: bear-feast-web
+          image: ghcr.io/jalju0804/bear-feast-web:sha-0db3e6f07e7210122306c11de024bd8aa6e6bd9b
+          ports:
+            - name: http
+              containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bear-feast-web
+  namespace: shared
+  labels:
+    app: bear-feast-web
+    app.kubernetes.io/name: bear-feast-web
+    app.kubernetes.io/part-of: shared
+spec:
+  type: LoadBalancer
+  selector:
+    app: bear-feast-web
+    app.kubernetes.io/name: bear-feast-web
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
