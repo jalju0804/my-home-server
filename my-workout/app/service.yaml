@@ -3,8 +3,8 @@ kind: Service
 metadata:
   name: my-workout
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app.kubernetes.io/name: my-workout
   ports:
-    - {name: http, port: 80, targetPort: http}
+    - {name: http, port: 80, targetPort: http, nodePort: 30800}

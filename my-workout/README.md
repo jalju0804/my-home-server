@@ -31,9 +31,13 @@ Provision the personal account once, after the first rollout:
 kubectl --context home-dev -n my-workout exec -it deployment/my-workout -- python manage.py createsuperuser
 ```
 
-Only a ClusterIP service is included until the private HTTPS access route is
-configured. `/healthz/` is the only unauthenticated HTTP health endpoint and
-does not expose workout data.
+The service uses NodePort 30800 on the home node (172.31.0.238).
+No public ingress, DNS record, or router/firewall port forwarding is configured here.
+NodePort can listen on all node interfaces; restrict access at the node/network firewall.
+HTTPS redirects and secure cookies remain enabled. This is an HTTP upstream for
+a trusted HTTPS proxy, not a directly usable HTTP login/PWA endpoint. The proxy
+must overwrite X-Forwarded-Proto; add its hostname to the allowed hosts and CSRF origins.
+`/healthz/` supports plain HTTP and does not expose workout data.
 
 The CronJob performs a daily online backup at 03:00 Asia/Seoul, retaining 30
 daily and 12 monthly copies on `my-workout-backups`. Both PVCs currently use

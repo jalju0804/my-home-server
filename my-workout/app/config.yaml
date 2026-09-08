@@ -6,5 +6,5 @@ data:
   DJANGO_DEBUG: "0"
   DATA_DIR: /data
   BACKUP_DIR: /backups/workout
-  DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,my-workout.my-workout.svc.cluster.local
+  DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,my-workout.my-workout.svc.cluster.local,172.31.0.238
   CSRF_TRUSTED_ORIGINS: ""
