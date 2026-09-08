@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-workout
+data:
+  DJANGO_DEBUG: "0"
+  DATA_DIR: /data
+  BACKUP_DIR: /backups
+  DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,my-workout.my-workout.svc.cluster.local
+  CSRF_TRUSTED_ORIGINS: ""

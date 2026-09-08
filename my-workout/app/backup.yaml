@@ -1,0 +1,57 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: my-workout-backup
+spec:
+  schedule: "0 3 * * *"
+  timeZone: Asia/Seoul
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 3600
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 600
+      template:
+        metadata:
+          annotations:
+            sidecar.istio.io/inject: "false"
+        spec:
+          restartPolicy: Never
+          automountServiceAccountToken: false
+          imagePullSecrets:
+            - name: ghcr-secret
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 10001
+            runAsGroup: 10001
+            fsGroup: 10001
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: backup
+              image: ghcr.io/jalju0804/my-workout:pending-first-build
+              command: [python, manage.py, backup_workouts, --prune]
+              envFrom:
+                - configMapRef: {name: my-workout}
+                - secretRef: {name: my-workout}
+              resources:
+                requests: {cpu: 25m, memory: 64Mi}
+                limits: {cpu: 250m, memory: 192Mi}
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop: [ALL]
+              volumeMounts:
+                - {name: data, mountPath: /data}
+                - {name: backups, mountPath: /backups}
+                - {name: tmp, mountPath: /tmp}
+          volumes:
+            - name: data
+              persistentVolumeClaim: {claimName: my-workout-data}
+            - name: backups
+              persistentVolumeClaim: {claimName: my-workout-backups}
+            - name: tmp
+              emptyDir: {}
